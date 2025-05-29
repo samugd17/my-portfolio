@@ -160,6 +160,26 @@ img {
     width: 100%;
 }
 
+/* Language Switcher */
+.language-switcher {
+    display: flex;
+    align-items: center;
+}
+
+.language-switcher a {
+    margin: 0 2px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.language-switcher a.active {
+    color: var(--highlight-color);
+}
+
+.language-switcher a:hover {
+    color: var(--highlight-color);
+}
+
 .hamburger {
     display: none;
     cursor: pointer;
