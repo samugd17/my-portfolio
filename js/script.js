@@ -7,6 +7,8 @@ const filterBtns = document.querySelectorAll('.filter-btn');
 const projectCards = document.querySelectorAll('.project-card');
 const contactForm = document.getElementById('contactForm');
 const yearEl = document.getElementById('year');
+const modal = document.getElementById("modal");
+const modalContent = document.querySelector(".modal-content");
 
 // Set current year in footer
 yearEl.textContent = new Date().getFullYear();
@@ -34,74 +36,6 @@ navLinksItems.forEach(item => {
     });
 });
 
-// Active link on scroll
-window.addEventListener('scroll', () => {
-    let current = '';
-    const sections = document.querySelectorAll('section');
-    
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
-        
-        if (window.scrollY >= (sectionTop - 200)) {
-            current = section.getAttribute('id');
-        }
-    });
-    
-    navLinksItems.forEach(item => {
-        item.querySelector('a').classList.remove('active');
-        if (item.querySelector('a').getAttribute('href') === `#${current}`) {
-            item.querySelector('a').classList.add('active');
-        }
-    });
-});
-
-// Project filtering
-filterBtns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        // Remove active class from all buttons
-        filterBtns.forEach(btn => btn.classList.remove('active'));
-        
-        // Add active class to clicked button
-        btn.classList.add('active');
-        
-        const filter = btn.getAttribute('data-filter');
-        
-        projectCards.forEach(card => {
-            if (filter === 'all') {
-                card.style.display = 'block';
-            } else if (card.getAttribute('data-category') === filter) {
-                card.style.display = 'block';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    });
-});
-
-// Contact form submission
-if (contactForm) {
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        
-        // Get form values
-        const name = document.getElementById('name').value;
-        const email = document.getElementById('email').value;
-        const subject = document.getElementById('subject').value;
-        const message = document.getElementById('message').value;
-        
-        // Here you would typically send the form data to a server
-        // For now, we'll just log it to the console
-        console.log('Form submitted:', { name, email, subject, message });
-        
-        // Show success message (you can customize this)
-        alert('Thank you for your message! I will get back to you soon.');
-        
-        // Reset form
-        contactForm.reset();
-    });
-}
-
 // Smooth scroll for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -120,7 +54,97 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Animation on scroll (simple version)
+// IntersectionObserver para resaltar el enlace activo
+const observerOptions = {
+    root: null,
+    rootMargin: '-120px 0px -60% 0px',
+    threshold: 0
+};
+
+const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const id = entry.target.getAttribute('id');
+            navLinksItems.forEach(item => {
+                const link = item.querySelector('a');
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${id}`) {
+                    link.classList.add('active');
+                }
+            });
+        }
+    });
+}, observerOptions);
+
+document.querySelectorAll('section[id]').forEach(section => {
+    observer.observe(section);
+});
+
+// Project filtering
+filterBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        filterBtns.forEach(btn => btn.classList.remove('active'));
+        btn.classList.add('active');
+        
+        const filter = btn.getAttribute('data-filter');
+        
+        projectCards.forEach(card => {
+            card.style.display = (filter === 'all' || card.getAttribute('data-category') === filter)
+                ? 'block'
+                : 'none';
+        });
+    });
+});
+
+// Contact form submission (EmailJS + SweetAlert)
+emailjs.init("4ez17r0ajw3xc07_w");
+
+contactForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    // Detecta idioma del documento
+    const lang = document.documentElement.lang;
+
+    // Mensajes en ambos idiomas
+    const messages = {
+        success: {
+            es: "¡Mensaje enviado con éxito!",
+            en: "Message sent successfully!"
+        },
+        errorTitle: {
+            es: "Ups...",
+            en: "Oops..."
+        },
+        errorText: {
+            es: "¡El mensaje no ha podido ser enviado!, puedes contactarme directamente a través de mi correo electrónico: samuglezdiaz@gmail.com",
+            en: "The message could not be sent! You can contact me directly at: samuglezdiaz@gmail.com"
+        }
+    };
+
+    emailjs.sendForm("service_jxnnjbe", "template_lvbamhw", this)
+        .then(() => {
+            Swal.fire({
+                icon: 'success',
+                title: messages.success[lang] || messages.success.es,
+                showConfirmButton: false,
+                timer: 2000
+            });
+            this.reset();
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            Swal.fire({
+                icon: 'error',
+                title: messages.errorTitle[lang] || messages.errorTitle.es,
+                text: messages.errorText[lang] || messages.errorText.es,
+                showConfirmButton: false,
+                timer: 2000
+            });
+        });
+});
+
+
+// Animación al hacer scroll
 const animateOnScroll = () => {
     const elements = document.querySelectorAll('.section');
     
@@ -135,13 +159,30 @@ const animateOnScroll = () => {
     });
 };
 
-// Add initial styles for animation
+// Animations style
 document.querySelectorAll('.section').forEach(section => {
     section.style.opacity = '0';
     section.style.transform = 'translateY(20px)';
     section.style.transition = 'all 0.5s ease';
 });
 
-// Run animation on load and scroll
+// Animations
 window.addEventListener('load', animateOnScroll);
 window.addEventListener('scroll', animateOnScroll);
+
+// Modal
+function openModal() {
+    modal.style.display = "block";
+    document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+    modal.style.display = "none";
+    document.body.style.overflow = "auto";
+}
+
+window.addEventListener("click", function (event) {
+    if (event.target === modal) {
+        closeModal();
+    }
+});
