@@ -1,87 +1,45 @@
-# Modern Dark Portfolio
+# Samuel González Portfolio
 
-A professional, modern portfolio website with a dark theme, featuring sections for About Me, Studies, Experience, Projects, and Contact.
+## 🇬🇧 English
 
-## Features
+A professional, modern portfolio website with a dark theme, available in both English and Spanish. All main sections are included below:
 
-- Responsive design that works on all devices
-- Dark theme with elegant color scheme
-- Smooth scrolling and animations
-- Interactive project filtering
-- Contact form
-- Mobile-friendly navigation
+### Table of Contents
+- **Home:** Welcome section with your name, title, and a brief introduction.
+- **About Me:** Biography, career change story, and your main skills.
+- **Studies:** Formal education, including degrees and brief descriptions.
+- **Complementary Studies:** Additional courses and certifications.
+- **Experience:** Detailed professional experience, responsibilities, and achievements.
+- **Projects:** Highlighted projects, each with a description, links, and a modal carousel for screenshots.
+- **Contact:** Contact information and a functional form with language-aware feedback.
 
-## File Structure
+### Features
+- **Bilingual support:** Full content in English and Spanish
+- **Responsive design:** Works beautifully on all devices
+- **Dark theme:** Elegant and accessible color palette
+- **Smooth scrolling and animations:** Enhanced user experience
+- **Project carousel:** View project screenshots in a modal carousel
+- **Contact form:** Language-aware feedback messages, ready for integration
+- **Mobile-friendly navigation:** Hamburger menu activates at wide breakpoints for best UX
 
-```
-dark-portfolio/
-├── css/
-│   └── style.css
-├── img/
-│   └── (place your images here)
-├── js/
-│   └── script.js
-├── index.html
-└── README.md
-```
+## 🇪🇸 Español
 
-## Getting Started
+Una web de portafolio profesional y moderna con tema oscuro, disponible en inglés y español. Todas las secciones principales se detallan a continuación:
 
-1. Clone or download this repository
-2. Replace the placeholder content in `index.html` with your personal information
-3. Add your own images to the `img/` directory
-4. Customize the colors in `css/style.css` if desired
-5. Open `index.html` in a web browser to view your portfolio
+### Índice de secciones
+- **Inicio:** Sección de bienvenida con tu nombre, título y una breve introducción.
+- **Sobre mí:** Biografía, historia de cambio profesional y tus principales habilidades.
+- **Estudios:** Formación reglada, títulos y descripciones breves.
+- **Estudios complementarios:** Cursos adicionales y certificaciones.
+- **Experiencia:** Experiencia profesional detallada, responsabilidades y logros.
+- **Proyectos:** Proyectos destacados, cada uno con descripción, enlaces y carrusel modal de capturas.
+- **Contacto:** Información de contacto y formulario funcional con mensajes adaptados al idioma.
 
-## Image Requirements
-
-You'll need to add the following images to the `img/` directory:
-
-- `profile.jpg` - Your profile picture (recommended size: 400x400px)
-- `project1.jpg`, `project2.jpg`, etc. - Images for your projects (recommended size: 600x400px)
-
-## Customization
-
-### Changing Colors
-
-To modify the color scheme, edit the CSS variables at the top of the `css/style.css` file:
-
-```css
-:root {
-    --primary-color: #121212;
-    --secondary-color: #1e1e1e;
-    --accent-color: #4d4d4d;
-    --highlight-color: #64ffda;
-    --text-color: #e0e0e0;
-    --text-secondary: #a0a0a0;
-    /* ... */
-}
-```
-
-### Adding Projects
-
-To add a new project, copy and paste the project card HTML structure in the Projects section and update the content:
-
-```html
-<div class="project-card" data-category="your-category">
-    <div class="project-img">
-        <img src="img/your-project-image.jpg" alt="Project Title">
-    </div>
-    <div class="project-info">
-        <h3>Project Title</h3>
-        <p>Project Type</p>
-        <div class="project-links">
-            <a href="#" target="_blank"><i class="fas fa-external-link-alt"></i></a>
-            <a href="#" target="_blank"><i class="fab fa-github"></i></a>
-        </div>
-    </div>
-</div>
-```
-
-## Contact Form
-
-The contact form is set up for demonstration purposes. To make it functional, you'll need to implement server-side processing or use a form submission service like Formspree or Netlify Forms.
-
-## License
-
-This project is available for personal and commercial use.
+### Características
+- **Soporte bilingüe:** Todo el contenido en inglés y español
+- **Diseño responsive:** Perfecto en cualquier dispositivo
+- **Tema oscuro:** Paleta elegante y accesible
+- **Animaciones y desplazamiento suave:** Navegación agradable
+- **Carrusel de proyectos:** Visualiza capturas de proyectos en un modal interactivo
+- **Formulario de contacto:** Mensajes adaptados al idioma, listo para integrar
+- **Navegación móvil:** Menú hamburguesa activo en pantallas grandes para mejor experiencia
