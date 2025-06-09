@@ -121,9 +121,9 @@ contactForm.addEventListener("submit", function (e) {
         .then(() => {
             Swal.fire({
                 icon: 'success',
-                title: messages.success[lang] || messages.success.es,
+                title: messages.success[lang],
                 showConfirmButton: false,
-                timer: 2000
+                timer: 2500
             });
             this.reset();
         })
@@ -131,10 +131,10 @@ contactForm.addEventListener("submit", function (e) {
             console.error("Error:", error);
             Swal.fire({
                 icon: 'error',
-                title: messages.errorTitle[lang] || messages.errorTitle.es,
-                text: messages.errorText[lang] || messages.errorText.es,
+                title: messages.errorTitle[lang],
+                text: messages.errorText[lang],
                 showConfirmButton: false,
-                timer: 2000
+                timer: 2500
             });
         });
 });
