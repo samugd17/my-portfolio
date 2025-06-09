@@ -101,11 +101,7 @@ emailjs.init("4ez17r0ajw3xc07_w");
 
 contactForm.addEventListener("submit", function (e) {
     e.preventDefault();
-
-    // Detecta idioma del documento
     const lang = document.documentElement.lang;
-
-    // Mensajes en ambos idiomas
     const messages = {
         success: {
             es: "¡Mensaje enviado con éxito!",
