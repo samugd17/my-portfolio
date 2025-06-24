@@ -140,7 +140,7 @@ contactForm.addEventListener("submit", function (e) {
 });
 
 
-// Animación al hacer scroll
+// Scroll animation
 const animateOnScroll = () => {
     const elements = document.querySelectorAll('.section');
     

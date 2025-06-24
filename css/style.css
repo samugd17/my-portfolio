@@ -47,7 +47,8 @@ img {
     padding: 0 20px;
 }
 
-button, .btn {
+button,
+.btn {
     font-family: 'Poppins', sans-serif;
     font-weight: 500;
     cursor: pointer;
@@ -560,12 +561,12 @@ footer {
 }
 
 /* Modal */
-
 .modal {
     display: none;
     position: fixed;
-    z-index: 9999;
-    left: 0; top: 0;
+    z-index: 100;
+    left: 0;
+    top: 0;
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.6);
@@ -573,27 +574,33 @@ footer {
 }
 
 .modal-content {
+    position: relative;
     background: var(--secondary-color);
     margin: 5% auto;
     padding: 20px;
-    height: 85%;
+    border-radius: 8px;
     width: 80%;
     max-width: 1200px;
-    border-radius: 8px;
-    transform: scale(0.95);
-    opacity: 0;
-    animation: popIn 0.3s ease forwards;
+    height: 75%;
+    min-height: 500px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    animation: modalFadeIn 0.3s;
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 @keyframes popIn {
     to {
-    transform: scale(1);
-    opacity: 1;
+        transform: scale(1);
+        opacity: 1;
     }
 }
 
@@ -603,22 +610,34 @@ footer {
 }
 
 .close {
+    border-radius: 50%;
     float: right;
     font-size: 24px;
+    width: 35px;
+    height: 35px;
     cursor: pointer;
 }
 
+#closeIcon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .close:hover {
-    color: var(--highlight-color);
+    background: var(--highlight-color);
+    color: var(--primary-color);
 }
 
 /* Carousel */
 .carousel-container {
+    position: relative;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
     gap: 20px;
-    margin: 12px 0 0 0;
+    margin: 16px 0 0 0;
+    height: 100%;
 }
 
 .carousel-slide {
@@ -628,11 +647,11 @@ footer {
 
 .carousel-slide img {
     max-width: 100%;
-    max-height: 600px;
+    max-height: 500px;
     display: block;
     margin: 0 auto 16px auto;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
 }
 
 #carousel-title {
@@ -647,6 +666,9 @@ footer {
 
 
 .carousel-btn {
+    position: absolute;
+    top: 30%;
+    transform: translateY(-50%);
     background: var(--accent-color);
     color: var(--text-color);
     border: none;
@@ -655,11 +677,17 @@ footer {
     height: 44px;
     font-size: 24px;
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     transition: background 0.2s;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    z-index: 10;
+}
+
+#carousel-prev {
+    left: 5px;
+}
+
+#carousel-next {
+    right: 5px;
 }
 
 .carousel-arrow {
@@ -672,6 +700,7 @@ footer {
 .carousel-arrow-left {
     transform: scaleX(-1);
 }
+
 .carousel-btn:hover {
     background: var(--highlight-color);
     color: var(--primary-color);
@@ -679,6 +708,7 @@ footer {
 
 /* Responsive Design */
 @media (max-width: 1200px) {
+
     .hero-content h1 {
         font-size: 50px;
     }
@@ -693,7 +723,7 @@ footer {
     }
 
     .timeline::after {
-        left: 31px;
+        left: 30px;
     }
 
     .timeline-item {
@@ -709,16 +739,13 @@ footer {
 
     .timeline-item:nth-child(odd) .timeline-content::after,
     .timeline-item:nth-child(even) .timeline-content::after {
-        left: -39px;
+        left: -50px;
     }
 
     .contact-content {
         grid-template-columns: 1fr;
     }
-}
 
-/* Medium screens */
-@media (max-width: 1200px) {
     .nav-links {
         position: fixed;
         left: -100%;
@@ -761,54 +788,11 @@ footer {
         margin-left: auto;
         padding-right: 10px;
     }
+
 }
 
 @media (max-width: 768px) {
-    /* SweetAlert2 modal responsiveness */
-    .swal2-popup {
-        width: 90vw !important;
-        max-width: 95vw !important;
-        padding: 1.5rem 0.5rem !important;
-        font-size: 1rem !important;
-        box-sizing: border-box;
-    }
-    .swal2-title {
-        font-size: 1.2rem !important;
-        padding: 0.5em 0.5em 0.2em 0.5em !important;
-        word-break: break-word;
-    }
-    .swal2-html-container {
-        font-size: 1rem !important;
-        padding: 0.2em 0.5em 0.5em 0.5em !important;
-        word-break: break-word;
-    }
-    .swal2-actions {
-        flex-direction: column !important;
-        gap: 0.5em !important;
-    }
-    .swal2-styled {
-        width: 100% !important;
-        box-sizing: border-box;
-        font-size: 1rem !important;
-    }
-    .swal2-icon {
-        font-size: 2.5rem !important;
-        margin: 0.5em auto !important;
-    }
-}
 
-@media (max-width: 400px) {
-    .swal2-popup {
-        width: 98vw !important;
-        max-width: 98vw !important;
-        padding: 1rem 0.2rem !important;
-    }
-    .swal2-title, .swal2-html-container {
-        font-size: 0.98rem !important;
-    }
-}
-
-@media (max-width: 768px) {
     .hero-content h1 {
         font-size: 40px;
     }
@@ -825,27 +809,38 @@ footer {
         grid-template-columns: 1fr;
     }
 
-    /* Timeline responsive adjustments */
-    .timeline::after {
-        left: 31px;
-    }
-
-    .timeline-item {
+    .modal-content {
+        top: 80px;
+        height: 95%;
         width: 100%;
-        padding-left: 70px;
-        padding-right: 25px;
     }
 
-    .timeline-item:nth-child(even) {
+    .carousel-container {
+        display: block;
+        position: relative;
+    }
+
+    .carousel-btn {
+        position: absolute;
+        top: 15%;
+        transform: translateY(-50%);
+        opacity: 0.75;
+    }
+    
+    #carousel-prev {
         left: 0;
     }
-
-    .timeline-item:nth-child(odd) .timeline-content::after,
-    .timeline-item:nth-child(even) .timeline-content::after {
-        left: -39px;
+    
+    #carousel-next {
+        right: 0;
     }
 
-    .contact-content {
-        grid-template-columns: 1fr;
+    .carousel-slide img {
+        max-width: 100%;
+        max-height: 500px;
+        display: block;
+        margin: 0 auto 16px auto;
+        border-radius: 8px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
     }
 }
