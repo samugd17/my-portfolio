@@ -36,25 +36,7 @@ navLinksItems.forEach(item => {
     });
 });
 
-// Smooth scroll for anchor links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        
-        const targetId = this.getAttribute('href');
-        if (targetId === '#') return;
-        
-        const targetElement = document.querySelector(targetId);
-        if (targetElement) {
-            window.scrollTo({
-                top: targetElement.offsetTop - 80,
-                behavior: 'smooth'
-            });
-        }
-    });
-});
-
-// IntersectionObserver para resaltar el enlace activo
+// Highlight active nav link on scroll
 const observerOptions = {
     root: null,
     rootMargin: '-120px 0px -60% 0px',
@@ -97,74 +79,70 @@ filterBtns.forEach(btn => {
 });
 
 // Contact form submission (EmailJS + SweetAlert)
-emailjs.init("4ez17r0ajw3xc07_w");
+if (contactForm && window.emailjs) {
+    emailjs.init("4ez17r0ajw3xc07_w");
 
-contactForm.addEventListener("submit", function (e) {
-    e.preventDefault();
-    const lang = document.documentElement.lang;
-    const messages = {
-        success: {
-            es: "¡Mensaje enviado con éxito!",
-            en: "Message sent successfully!"
-        },
-        errorTitle: {
-            es: "Ups...",
-            en: "Oops..."
-        },
-        errorText: {
-            es: "¡El mensaje no ha podido ser enviado!, puedes contactarme directamente a través de mi correo electrónico: samuglezdiaz@gmail.com",
-            en: "The message could not be sent! You can contact me directly at: samuglezdiaz@gmail.com"
-        }
-    };
+    contactForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        const lang = document.documentElement.lang;
+        const messages = {
+            success: {
+                es: "¡Mensaje enviado con éxito!",
+                en: "Message sent successfully!"
+            },
+            errorTitle: {
+                es: "Ups...",
+                en: "Oops..."
+            },
+            errorText: {
+                es: "¡El mensaje no ha podido ser enviado!, puedes contactarme directamente a través de mi correo electrónico: samuglezdiaz@gmail.com",
+                en: "The message could not be sent! You can contact me directly at: samuglezdiaz@gmail.com"
+            }
+        };
 
-    emailjs.sendForm("service_jxnnjbe", "template_lvbamhw", this)
-        .then(() => {
-            Swal.fire({
-                icon: 'success',
-                title: messages.success[lang],
-                showConfirmButton: false,
-                timer: 2500
+        emailjs.sendForm("service_jxnnjbe", "template_lvbamhw", this)
+            .then(() => {
+                Swal.fire({
+                    icon: 'success',
+                    title: messages.success[lang],
+                    showConfirmButton: false,
+                    timer: 2500
+                });
+                this.reset();
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                Swal.fire({
+                    icon: 'error',
+                    title: messages.errorTitle[lang],
+                    text: messages.errorText[lang],
+                    showConfirmButton: false,
+                    timer: 2500
+                });
             });
-            this.reset();
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            Swal.fire({
-                icon: 'error',
-                title: messages.errorTitle[lang],
-                text: messages.errorText[lang],
-                showConfirmButton: false,
-                timer: 2500
-            });
-        });
-});
-
-
-// Scroll animation
-const animateOnScroll = () => {
-    const elements = document.querySelectorAll('.section');
-    
-    elements.forEach(element => {
-        const elementPosition = element.getBoundingClientRect().top;
-        const windowHeight = window.innerHeight;
-        
-        if (elementPosition < windowHeight - 100) {
-            element.style.opacity = '1';
-            element.style.transform = 'translateY(0)';
-        }
     });
-};
+}
 
-// Animations style
-document.querySelectorAll('.section').forEach(section => {
+
+// Reveal sections on scroll (hidden state set here so it degrades gracefully without JS)
+const sections = document.querySelectorAll('.section');
+
+sections.forEach(section => {
     section.style.opacity = '0';
     section.style.transform = 'translateY(20px)';
-    section.style.transition = 'all 0.5s ease';
+    section.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
 });
 
-// Animations
-window.addEventListener('load', animateOnScroll);
-window.addEventListener('scroll', animateOnScroll);
+const revealObserver = new IntersectionObserver((entries, obs) => {
+    entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+        obs.unobserve(entry.target);
+    });
+}, { rootMargin: '0px 0px -100px 0px' });
+
+sections.forEach(section => revealObserver.observe(section));
 
 // Modal
 function openModal() {
